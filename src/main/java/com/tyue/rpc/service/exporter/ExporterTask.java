@@ -20,11 +20,13 @@ public class ExporterTask implements Runnable {
         try {
 
             input = new ObjectInputStream(client.getInputStream());
+
             String interfaceName = input.readUTF();
-            Class<?> service = Class.forName(interfaceName);
-            String methodName = input.readUTF();
-            Class<?>[] paramTypes =(Class<?>[]) input.readObject();
-            Object[] arguments = (Object[]) input.readObject();
+            Class<?> service        = Class.forName(interfaceName);
+            String methodName       = input.readUTF();
+            Class<?>[] paramTypes   =(Class<?>[]) input.readObject();
+            Object[] arguments      = (Object[]) input.readObject();
+
             Method method = service.getMethod(methodName, paramTypes);
             Object result = method.invoke(service.newInstance(), arguments);
 

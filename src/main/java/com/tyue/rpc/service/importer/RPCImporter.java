@@ -33,10 +33,12 @@ public class RPCImporter<T> {
                         socket = new Socket();
                         socket.connect(address);
                         output = new ObjectOutputStream(socket.getOutputStream());
-                        output.writeUTF(serviceClass.getName());
+
+                        output.writeUTF(serviceClass.getName());//写入顺序
                         output.writeUTF(method.getName());
                         output.writeObject(method.getParameterTypes());
                         output.writeObject(args);
+
                         input = new ObjectInputStream(socket.getInputStream());
                         return input.readObject();
                     }finally {

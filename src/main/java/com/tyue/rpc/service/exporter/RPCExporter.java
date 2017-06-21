@@ -17,14 +17,7 @@ import java.util.concurrent.Executors;
  *
  */
 public class RPCExporter {
-
     static Executor executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-    /**
-     * @param hostName
-     * @param port
-     * @throws Exception
-     */
     public static void exporter(String hostName, int port) throws Exception {
         ServerSocket server = new ServerSocket();
         server.bind(new InetSocketAddress(hostName, port));
@@ -32,8 +25,6 @@ public class RPCExporter {
             executor.execute(new ExporterTask(server.accept()));
         }
     }
-
-
 }
 
 
